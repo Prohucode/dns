@@ -1,0 +1,13 @@
+@use "./layout.scss";
+@use "./button.scss";
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background: var(--Background-Primary, #f7f7f7);
+}
+
+#__nuxt {
+  height: 100vh;
+  display: flex;
+}
