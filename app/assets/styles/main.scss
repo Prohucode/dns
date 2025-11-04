@@ -2,10 +2,14 @@
 	/* Цвета */
 	--gray-1: #f7f7f7;
 	--gray-2: #d9d9d9;
+	--gray-3: #8c8c8c;
 	--brand-1: #fc8507;
 	--brand-2: #ffa218;
 	--brand-3: #fff7dab2;
 	--black-1: #333333;
+	--black-2: #4e4e4e;
+	--green-1: #30b25d;
+	--green-2: #ebffed;
 
 	/* Отступы */
 	--space-xs: 4px;
@@ -27,13 +31,13 @@
 	--radius: 8px;
 }
 
-@font-face {
-	font-family: "DnsFont";
-	src: url("../font/pt-sans-latin.woff2") format("woff2");
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
+// @font-face {
+// 	font-family: "DnsFont";
+// 	src: url("../font/pt-sans-latin.woff2") format("woff2");
+// 	font-weight: normal;
+// 	font-style: normal;
+// 	font-display: swap;
+// }
 
 @font-face {
 	font-family: "DnsFont";
@@ -54,4 +58,16 @@ body {
 #__nuxt {
 	height: 100vh;
 	display: flex;
+}
+
+.pa-16 {
+	padding: 16px;
+}
+
+.pa-24 {
+	padding: 24px;
+}
+
+.ml-a{
+	margin-left: auto;
 }

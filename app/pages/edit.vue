@@ -1,30 +1,56 @@
 <template>
-	<Card>
+	<Card line>
 		<template #header> <b>Товары</b> </template>
-		<div>
-			<h1>Edit page</h1>
-			<p>ID: {{ id }}</p>
+		<div class="page-products pa-24">
 
-			<p>{{ products }}</p>
-			<p>{{ data }}</p>
-			<Button @click="saveData">Отправить</Button>
-			<Button variant="outline" @click="() => fetchProducts()">Серая</Button>
-			<Button variant="flat" :disabled="true">Удалить</Button>
+			<div class="ml-a">
+				<Button @click="saveData">Отправить</Button>
+			</div>
+
+			<Table v-if="products">
+				<thead>
+					<tr>
+						<th class="text-left">Название</th>
+						<th class="text-left">Количество</th>
+						<th class="text-left">Цена</th>
+						<th class="text-left">Цвет</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="item in products" :key="item.name">
+						<td>{{ item.name }}</td>
+						<td>
+							<Input v-model="item.amount" placeholder="Количество" />
+						</td>
+						<td>
+							<Input v-model="item.price" :decimals="2" placeholder="Цена" />
+						</td>
+						<td>
+							<Select v-model="item.color" :options="colors" placeholder="Выберите цвет" />
+						</td>
+					</tr>
+				</tbody>
+			</Table>
+
+			<SkeletonTable v-else />
 		</div>
 	</Card>
 </template>
 
 <script setup lang="ts">
-	import { useRoute } from "#imports";
-	import Button from "~/components/Button.vue";
-	import Card from "~/components/Card.vue";
-
 	const route = useRoute();
 	const id = route.query.id;
 
-	const { data: data } = await useFetch("/api/table-data");
-
 	const { products, fetchProducts } = useProducts();
+
+	const colors = [
+		{ key: "white", label: "Белый" },
+		{ key: "black", label: "Чёрный" },
+		{ key: "blue", label: "Синий" },
+		{ key: "red", label: "Красный" },
+		{ key: "green", label: "Зелёный" },
+		{ key: "yellow", label: "Жёлтый" },
+	];
 
 	async function saveData() {
 		const { data, error } = await useFetch("/api/send", {
@@ -42,3 +68,11 @@
 		}
 	}
 </script>
+
+<style scoped lang="scss">
+	.page-products {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+</style>

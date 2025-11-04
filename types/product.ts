@@ -1,10 +1,12 @@
 export interface Product {
-  id: number;
-  name: string;
-  price: number;
+	id: number;
+	name: string;
+	amount: number;
+	price: number;
+	color: string;
 }
 
 export interface RequestPayload {
-  id: number;
-  products: Product[];
+	id: number;
+	products: Product[];
 }

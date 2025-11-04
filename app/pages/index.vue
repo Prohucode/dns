@@ -1,8 +1,38 @@
 <template>
-  <div>
-    <h1>Главная страница</h1>
-    <p>Добро пожаловать в моё Nuxt-приложение!</p>
+	<Card line>
+		<template #header> <b>Заявки</b> </template>
+		<div class="pa-16">
+			<Table v-if="orders">
+				<thead>
+					<tr>
+						<th class="text-left">Номер</th>
+						<th class="text-left">Статус</th>
+						<th class="text-left">Результат</th>
+						<th class="text-left">Дата создания</th>
+						<th class="text-left">Действие</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="item in orders" :key="item.name">
+						<td>{{ item.name }}</td>
+						<td>
+							<Chip>{{ item.status }}</Chip>
+						</td>
+						<td>{{ item.result }}</td>
+						<td>{{ formatDate(item.date) }}</td>
+						<td>
+							<Button variant="outline">Редактировать</Button>
+						</td>
+					</tr>
+				</tbody>
+			</Table>
 
-    <NuxtLink to="/edit?id=123">Перейти на страницу редактирования</NuxtLink>
-  </div>
+			<SkeletonTable v-else />
+		</div>
+	</Card>
 </template>
+
+<script setup lang="ts">
+	import { formatDate } from "~/utils/formatDate";
+	const { orders, fetchTableData } = useTableData();
+</script>

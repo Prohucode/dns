@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<header>
+		<header :class="[{ line }]">
 			<slot name="header"></slot>
 		</header>
 		<main>
@@ -9,8 +9,15 @@
 	</div>
 </template>
 
+<script setup lang="ts">
+	defineProps<{
+		line?: boolean;
+	}>();
+</script>
+
 <style lang="scss" scoped>
 	.card {
+
 		display: flex;
 		background-color: white;
 		border-right: 1px solid #eee;
@@ -21,11 +28,21 @@
 
 		header {
 			display: flex;
-			width: 100%;
-			border-bottom: 1px solid var(--gray-2);
-			padding: 16px 18px;
-            align-items: center;
-            font-size: 24px;
+			border-bottom: 1px solid transparent;
+			padding: 16px 16px;
+			align-items: center;
+			flex-direction: row;
+			font-size: 24px;
+			min-height: 36px;
+
+			&.line {
+				border-bottom: 1px solid var(--gray-2);
+			}
+		}
+
+		main{
+			overflow-y: auto;
+			overflow-x: hidden;
 		}
 	}
 </style>

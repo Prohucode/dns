@@ -26,7 +26,7 @@
 		text-decoration: none;
 		color: var(--black-1);
 		border-left: 2px solid transparent;
-		padding: 0px 16px;
+		padding: 0px 14px;
 		gap: 10px;
 
 		&.active {

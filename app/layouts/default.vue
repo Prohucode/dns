@@ -3,7 +3,7 @@
 		<Sidebar v-model="sidebarOpen">
 			<template #default>
 				<SidebarItem to="/" icon="app" :mini="!sidebarOpen" :active="isActive('/')"> Заявки </SidebarItem>
-				<SidebarItem to="/edit" icon="app" :mini="!sidebarOpen" :active="isActive('/edit')"> Изменения </SidebarItem>
+				<SidebarItem to="/edit?id=1" icon="app" :mini="!sidebarOpen" :active="isActive('/edit')"> Изменения </SidebarItem>
 			</template>
 		</Sidebar>
 

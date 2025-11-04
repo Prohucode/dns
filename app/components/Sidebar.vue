@@ -1,31 +1,29 @@
 <template>
 	<aside :class="['sidebar', { open: isOpen }]">
-		<header>
-			<div class="title" v-show="isOpen">
-				<slot name="title"></slot>
-			</div>
-			<div class="toggle">
-				<Button variant="flat" icon v-if="!isOpen" @click="toggle">
-					<Icon name="right" />
-				</Button>
-				<Button variant="flat" icon v-else @click="toggle">
-					<Icon name="left" />
-				</Button>
-			</div>
-		</header>
+		<Card>
+			<template #header>
+				<div class="toggle">
+					<Button variant="flat" icon v-if="!isOpen" @click="toggle">
+						<Icon name="right" />
+					</Button>
+					<Button variant="flat" icon v-else @click="toggle">
+						<Icon name="left" />
+					</Button>
+				</div>
+			</template>
 
-		<main>
-			<slot></slot>
-		</main>
+			<main>
+				<slot></slot>
+			</main>
 
-		<footer>
-			<slot name="footer"></slot>
-		</footer>
+			<template #footer>
+				<slot name="footer"></slot>
+			</template>
+		</Card>
 	</aside>
 </template>
 
 <script setup lang="ts">
-
 	import { computed, ref } from "vue";
 
 	interface Props {
@@ -54,33 +52,25 @@
 	const toggle = () => {
 		isOpen.value = !isOpen.value;
 	};
-	
 </script>
 
 <style lang="scss" scoped>
 	.sidebar {
-		background-color: white;
-		border-right: 1px solid #eee;
 		display: flex;
-		flex-direction: column;
-		border-radius: var(--border-md);
-		overflow: hidden;
-		transition: width 0.3s ease;
+		transition: width 0.1s ease;
+		width: 68px;
 
 		&.open {
 			width: 280px;
+			.toggle {
+				margin-left: auto;
+			}
 		}
 
-		header {
+		.title {
 			display: flex;
-			flex-direction: row;
-			padding: 16px 18px;
-
-			.title {
-				display: flex;
-				flex: 1 1 0px;
-				align-items: center;
-			}
+			flex: 1 1 0px;
+			align-items: center;
 		}
 
 		main {
@@ -89,6 +79,7 @@
 			gap: 10px;
 			padding: 0px;
 			background-color: white;
+			padding-top: 20px;
 		}
 
 		footer {
