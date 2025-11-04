@@ -2,7 +2,7 @@
 	<aside :class="['sidebar', { open: isOpen }]">
 		<Card>
 			<template #header>
-				<div class="toggle">
+				<div class="toggle pa-16">
 					<Button variant="flat" icon v-if="!isOpen" @click="toggle">
 						<Icon name="right" />
 					</Button>

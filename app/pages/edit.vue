@@ -1,6 +1,8 @@
 <template>
 	<Card line>
-		<template #header> <b>Товары</b> </template>
+		<template #header > 
+			<b class="pa-16">Товары</b>
+		 </template>
 		<div class="page-products pa-24">
 
 			<div class="ml-a">

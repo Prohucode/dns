@@ -1,5 +1,5 @@
 <template>
-	<div class="select-input" ref="selectRef">
+	<div class="select" ref="selectRef">
 		<div class="select-input__field" @click="toggleDropdown" :class="{ open: isOpen }">
 			<span>{{ selectedLabel || placeholder }}</span>
 			<svg class="select-input__icon" width="16" height="16" viewBox="0 0 24 24">
@@ -7,15 +7,14 @@
 			</svg>
 		</div>
 
-		<!-- Рендерим dropdown поверх всего -->
-		<teleport to="body">
-			<div v-if="isOpen" class="select-input__dropdown" :style="dropdownStyle">
+		<div v-if="isOpen" class="dropdown" :style="dropdownStyle">
+			<Card>
 				<div v-for="option in options" :key="option.key" class="select-input__option" :class="{ selected: option.key === modelValue }" @click="selectOption(option)">
 					{{ option.label }}
 					<span v-if="option.key === modelValue" class="select-input__check">✔</span>
 				</div>
-			</div>
-		</teleport>
+			</Card>
+		</div>
 	</div>
 </template>
 
@@ -50,13 +49,18 @@
 		isOpen.value = true;
 		nextTick(() => {
 			const rect = selectRef.value.getBoundingClientRect();
-			dropdownStyle.value = {
-				position: "fixed",
-				top: rect.bottom + "px",
-				left: rect.left + "px",
-				width: rect.width + "px",
-				zIndex: 9999,
-			};
+			const viewportHeight = window.innerHeight;
+			const dropdownHeight = Math.min(props.options.length * 40, 200);
+			const spaceBelow = viewportHeight - rect.bottom;
+			const spaceAbove = rect.top;
+
+			dropdownStyle.value = {};
+
+			if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+				dropdownStyle.value.bottom = `40px`;
+			} else {
+				dropdownStyle.value.top = `40px`;
+			}
 		});
 	}
 
@@ -77,7 +81,7 @@
 </script>
 
 <style scoped>
-	.select-input {
+	.select {
 		position: relative;
 		width: 100%;
 		font-size: 14px;
@@ -112,15 +116,13 @@
 		transform: rotate(180deg);
 	}
 
-	/* dropdown теперь fixed, поэтому не обрежется */
-	.select-input__dropdown {
-		background: #fff;
-		border: 1px solid #eee;
-		border-radius: 6px;
-		margin-top: 4px;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-		max-height: 200px;
+	.dropdown {
+		position: absolute;
+		max-height: 256px;
+		width: 220px;
 		overflow-y: auto;
+		z-index: 9999;
+		overflow-x: hidden;
 	}
 
 	.select-input__option {

@@ -1,7 +1,7 @@
 <template>
 	<Card line>
-		<template #header> <b>Заявки</b> </template>
-		<div class="pa-16">
+		<template #header> <b class="pa-16">Заявки</b> </template>
+		<div class="pa-24">
 			<Table v-if="orders">
 				<thead>
 					<tr>
