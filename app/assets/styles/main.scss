@@ -1,13 +1,57 @@
-@use "./layout.scss";
-@use "./button.scss";
+:root {
+	/* Цвета */
+	--gray-1: #f7f7f7;
+	--gray-2: #d9d9d9;
+	--brand-1: #fc8507;
+	--brand-2: #ffa218;
+	--brand-3: #fff7dab2;
+	--black-1: #333333;
+
+	/* Отступы */
+	--space-xs: 4px;
+	--space-sm: 8px;
+	--space-md: 16px;
+	--space-lg: 24px;
+
+	--padding-xs: 4px;
+	--padding-sm: 8px;
+	--padding-md: 12px;
+	--padding-lg: 24px;
+
+	--border-xs: 4px;
+	--border-sm: 8px;
+	--border-md: 16px;
+	--border-lg: 24px;
+
+	/* Скругления */
+	--radius: 8px;
+}
+
+@font-face {
+	font-family: "DnsFont";
+	src: url("../font/pt-sans-latin.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "DnsFont";
+	src: url("../font/pt-sans-latin-bold.woff2") format("woff2");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
 
 body {
-  margin: 0px;
-  padding: 0px;
-  background: var(--Background-Primary, #f7f7f7);
+	margin: 0px;
+	padding: 0px;
+	background: var(--Background-Primary, #f7f7f7);
+	font-family: "DnsFont", sans-serif;
+	color: var(--black-1);
 }
 
 #__nuxt {
-  height: 100vh;
-  display: flex;
+	height: 100vh;
+	display: flex;
 }

@@ -1,35 +1,51 @@
 <template>
-  <NuxtLink :to="to" class="item">
-    <span class="icon">{{ icon }}</span>
-    <span class="label">{{ label }}</span>
-  </NuxtLink>
+	<NuxtLink :to="to" :class="['item', { active, mini }]">
+		<div class="icon">
+			<Icon v-if="icon" :name="icon" :color="active ? 'brand-1' : 'black-1'" />
+		</div>
+		<div class="title" v-show="!mini">
+			<slot></slot>
+		</div>
+	</NuxtLink>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  icon: string;
-  label: string;
-  to: string;
-}>();
+	defineProps<{
+		to: string;
+		icon?: string;
+		active?: boolean;
+		mini?: boolean;
+	}>();
 </script>
 
 <style lang="scss" scoped>
-.item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #333;
-  transition: background 0.2s;
+	.item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		text-decoration: none;
+		color: var(--black-1);
+		border-left: 2px solid transparent;
+		padding: 0px 16px;
+		gap: 10px;
 
-  &:hover {
-    background: #f6f6f6;
-  }
+		&.active {
+			color: var(--brand-1);
+			border-left: 2px solid var(--brand-1);
 
-  .icon {
-    font-size: 18px;
-  }
-}
+			&.mini {
+				.icon {
+					background-color: var(--brand-3);
+				}
+			}
+		}
+
+		> .icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: var(--padding-sm);
+			border-radius: var(--radius);
+		}
+	}
 </style>

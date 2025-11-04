@@ -1,62 +1,98 @@
 <template>
+	<aside :class="['sidebar', { open: isOpen }]">
+		<header>
+			<div class="title" v-show="isOpen">
+				<slot name="title"></slot>
+			</div>
+			<div class="toggle">
+				<Button variant="flat" icon v-if="!isOpen" @click="toggle">
+					<Icon name="right" />
+				</Button>
+				<Button variant="flat" icon v-else @click="toggle">
+					<Icon name="left" />
+				</Button>
+			</div>
+		</header>
 
-  <aside :class="['sidebar', { collapsed }]">
+		<main>
+			<slot></slot>
+		</main>
 
-    <div class="toggle">
-      <MyButton variant="flat" icon v-if="collapsed" @click="toggle">
-        <Icon name="right" />
-      </MyButton>
-      <MyButton variant="flat" icon v-else @click="toggle"
-        ><Icon name="left"
-      /></MyButton>
-    </div>
-<!-- 
-    <nav>
-      <SidebarItem icon="📋" label="Заявки" to="/requests" />
-      <SidebarItem icon="📦" label="Товары" to="/products" />
-      <SidebarItem icon="⚙️" label="Настройки" to="/settings" />
-    </nav> -->
-
-
-  </aside>
+		<footer>
+			<slot name="footer"></slot>
+		</footer>
+	</aside>
 </template>
 
 <script setup lang="ts">
-import SidebarItem from "./SidebarItem.vue";
 
-const collapsed = ref(false);
-const toggle = () => (collapsed.value = !collapsed.value);
+	import { computed, ref } from "vue";
+
+	interface Props {
+		modelValue?: boolean; // ← теперь опционально
+	}
+
+	const props = defineProps<Props>();
+
+	const emit = defineEmits<{
+		(e: "update:modelValue", value: boolean): void;
+	}>();
+
+	const internalOpen = ref(false);
+
+	const isOpen = computed({
+		get: () => (props.modelValue !== undefined ? props.modelValue : internalOpen.value),
+		set: (val: boolean) => {
+			if (props.modelValue !== undefined) {
+				emit("update:modelValue", val);
+			} else {
+				internalOpen.value = val;
+			}
+		},
+	});
+
+	const toggle = () => {
+		isOpen.value = !isOpen.value;
+	};
+	
 </script>
 
 <style lang="scss" scoped>
-.sidebar {
-  width: 220px;
-  transition: width 0.3s ease;
-  background: #fff;
-  border-right: 1px solid #eee;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  border-radius: 16px;
+	.sidebar {
+		background-color: white;
+		border-right: 1px solid #eee;
+		display: flex;
+		flex-direction: column;
+		border-radius: var(--border-md);
+		overflow: hidden;
+		transition: width 0.3s ease;
 
-  &.collapsed {
-    width: auto;
+		&.open {
+			width: 280px;
+		}
 
-    .label {
-      display: none;
-    }
-  }
+		header {
+			display: flex;
+			flex-direction: row;
+			padding: 16px 18px;
 
-  .toggle {
-    padding: 8px;
-    font-size: 18px;
-    display: flex;
-    justify-content: end;
-  }
+			.title {
+				display: flex;
+				flex: 1 1 0px;
+				align-items: center;
+			}
+		}
 
-  nav {
-    margin-top: 20px;
-  }
-}
+		main {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			padding: 0px;
+			background-color: white;
+		}
+
+		footer {
+			padding: 16px 18px;
+		}
+	}
 </style>
