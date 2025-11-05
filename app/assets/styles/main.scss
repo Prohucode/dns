@@ -60,6 +60,10 @@ body {
 	display: flex;
 }
 
+.pa-8 {
+	padding: 8px;
+}
+
 .pa-16 {
 	padding: 16px;
 }
@@ -70,4 +74,12 @@ body {
 
 .ml-a{
 	margin-left: auto;
+}
+
+.flex{
+	display: flex;
+}
+
+.center-h{
+	align-items: center;
 }
