@@ -10,14 +10,14 @@
         >
           Заявки
         </SidebarItem>
-        <SidebarItem
+        <!-- <SidebarItem
           to="/edit?id=1"
           icon="app"
           :mini="!sidebarOpen"
           :active="isActive('/edit')"
         >
           Изменения
-        </SidebarItem>
+        </SidebarItem> -->
       </template>
     </Sidebar>
 

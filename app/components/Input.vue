@@ -70,7 +70,7 @@
 	}
 
 	.numeric-input__field:focus {
-		border-color: #409eff;
+		border-color: var(--brand-1);
 		box-shadow: 0 0 2px rgba(64, 158, 255, 0.4);
 	}
 
